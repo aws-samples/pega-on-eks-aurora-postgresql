@@ -1,11 +1,11 @@
-# Pega on EKS (Tomcat) and Aurora 
+# Amazon EKS Blueprints for Terraform
 
 [![plan-examples](https://github.com/aws-ia/terraform-aws-eks-blueprints/actions/workflows/plan-examples.yml/badge.svg)](https://github.com/aws-ia/terraform-aws-eks-blueprints/actions/workflows/plan-examples.yml)
 [![pre-commit](https://github.com/aws-ia/terraform-aws-eks-blueprints/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/aws-ia/terraform-aws-eks-blueprints/actions/workflows/pre-commit.yml)
 
 ---
 
-## Prerequisites :
+## :bangbang: Notice of Potential Breaking Changes in Version 5 :bangbang:
 
 The direction for EKS Blueprints in v5 will shift from providing an all-encompassing, monolithic "framework" and instead focus more on how users can organize a set of modular components to create the desired solution on Amazon EKS.
 
