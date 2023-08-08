@@ -30,7 +30,7 @@ data "aws_eks_cluster_auth" "this" {
 data "aws_availability_zones" "available" {}
 
 locals {
-  name   = basename(path.cwd)
+  name   = "pega2" # VD name of your EKS cluster 
   region = "us-east-1"
 
   vpc_cidr = "10.0.0.0/16"
