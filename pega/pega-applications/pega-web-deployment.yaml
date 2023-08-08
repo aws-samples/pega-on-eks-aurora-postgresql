@@ -1,0 +1,202 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+# deployments.apps "pega-web" was not valid:
+# * patch: Invalid value: "map[spec:map[template:map[spec:map[]]]]": unrecognized type: string
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    meta.helm.sh/release-name: pega
+    meta.helm.sh/release-namespace: pega
+  creationTimestamp: "2023-07-06T20:57:18Z"
+  generation: 1
+  labels:
+    app: pega-web
+    app.kubernetes.io/managed-by: Helm
+    component: Pega
+  name: pega-web
+  namespace: pega
+  resourceVersion: "9031381"
+  uid: 3d0c30e5-b1d8-4bf6-b160-3e907016f2f2
+spec:
+  progressDeadlineSeconds: 2147483647
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: pega-web
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        certificate-check: 2cb1f675c5f532bd68c3851872bf42719f0516208049d403a84068dac54c695c
+        config-check: 43e803bde0bae1298e245a7f842f6e0a756256e266cdffce68e3f37f14840650
+        config-tier-check: 8e371a3320aebb1717a17ea9281eb249ce1251f2c1350df9efde958662ee69bf
+      creationTimestamp: null
+      labels:
+        app: pega-web
+    spec:
+      containers:
+      - env:
+        - name: NODE_TYPE
+          value: WebUser
+        - name: PEGA_APP_CONTEXT_PATH
+          value: prweb
+        - name: REQUESTOR_PASSIVATION_TIMEOUT
+          value: "900"
+        - name: JAVA_OPTS
+        - name: CATALINA_OPTS
+        - name: CATALINA_OUT
+          value: "/var/log/tomcat.log"
+        - name: INITIAL_HEAP
+          value: 4096m
+        - name: MAX_HEAP
+          value: 8192m
+        - name: NODE_TIER
+          value: web
+        - name: RETRY_TIMEOUT
+          value: "30"
+        - name: MAX_RETRIES
+          value: "4"
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: pega-credentials-secret
+              key: DB_USERNAME  
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pega-credentials-secret
+              key: DB_PASSWORD  
+        envFrom:
+        - configMapRef:
+            name: pega-environment-config
+        image: 136658121779.dkr.ecr.us-east-1.amazonaws.com/pega-images/platform/pega:8.6.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /prweb/PRRestService/monitor/pingService/ping
+            port: 8081
+            scheme: HTTP
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 20
+        name: pega-web-tomcat
+        ports:
+        - containerPort: 8080
+          name: pega-web-port
+          protocol: TCP
+        - containerPort: 8443
+          name: pega-tls-port
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /prweb/PRRestService/monitor/pingService/ping
+            port: 8080
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
+        resources:
+          limits:
+            cpu: "4"
+            memory: 12Gi
+          requests:
+            cpu: "3"
+            memory: 12Gi
+        startupProbe:
+          failureThreshold: 30
+          httpGet:
+            path: /prweb/PRRestService/monitor/pingService/ping
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /opt/pega/config
+          name: pega-volume-config
+        - mountPath: /opt/pega/secrets
+          name: pega-volume-credentials
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: pega-registry-secret
+      initContainers:
+      - args:
+        - job
+        - pega-db-install
+        env:
+        - name: WAIT_TIME
+          value: "2"
+        - name: MAX_RETRIES
+          value: "1"
+        image: pegasystems/k8s-wait-for
+        imagePullPolicy: IfNotPresent
+        name: wait-for-pegainstall
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      - command:
+        - sh
+        - -c
+        - until $(wget -q -S --spider --timeout=2 -O /dev/null http://pega-search);
+          do echo Waiting for search to become live...; sleep 10; done;
+        image: busybox:1.31.0
+        imagePullPolicy: IfNotPresent
+        name: wait-for-pegasearch
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      - command:
+        - sh
+        - -c
+        - until cqlsh -u "dnode_ext" -p "dnode_ext" -e "describe cluster" pega-cassandra
+          9042 ; do echo Waiting for cassandra to become live...; sleep 10; done;
+        image: cassandra:3.11.3
+        imagePullPolicy: IfNotPresent
+        name: wait-for-cassandra
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        fsGroup: 0
+        runAsUser: 9001
+      terminationGracePeriodSeconds: 300
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: pega-web
+        name: pega-volume-config
+      - name: pega-volume-credentials
+        projected:
+          defaultMode: 420
+          sources:
+          - secret:
+              name: pega-credentials-secret
+status:
+  conditions:
+  - lastTransitionTime: "2023-07-06T20:57:18Z"
+    lastUpdateTime: "2023-07-06T20:57:18Z"
+    message: Deployment does not have minimum availability.
+    reason: MinimumReplicasUnavailable
+    status: "False"
+    type: Available
+  observedGeneration: 1
+  replicas: 1
+  unavailableReplicas: 1
+  updatedReplicas: 1
