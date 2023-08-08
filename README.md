@@ -1,37 +1,32 @@
-# Pega on EKS (Tomcat) and Aurora 
+# Amazon EKS (Tomcat) and Amazon Aurora PostgreSQL blueprint for Pega
 
-[![plan-examples](https://github.com/aws-ia/terraform-aws-eks-blueprints/actions/workflows/plan-examples.yml/badge.svg)](https://github.com/aws-ia/terraform-aws-eks-blueprints/actions/workflows/plan-examples.yml)
-[![pre-commit](https://github.com/aws-ia/terraform-aws-eks-blueprints/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/aws-ia/terraform-aws-eks-blueprints/actions/workflows/pre-commit.yml)
+Welcome to blueprint for running Pega platform on EKS ( Tomcat) and Amazon Aurora PostgreSQL. This project is a collection of
 
----
+1. IaC using Terraform which creates 1/ an EKS cluster with all the necessary add ons reqwuired to install Pega Platform 2/ Aurora PostgreSQL Serverless v2 
+2. Creates all the necessary secrets in AWS secrets manager and replicates them as native kubernetes secrets using external secrets operator : https://external-secrets.io/latest/
+3. Deploys Pega application using helm charts 1/ installs RULES and DATA schemas onto AuroraPostgreSQL 2/ Installs pega-web and Pega-batch and all the necessary services suchg as Hazelcast in client server mode , Cassandra in Client server mode, Pega-search and Pega-stream.     
+
+< Insert Architecture here>
 
 ## Prerequisites :
 
-The direction for EKS Blueprints in v5 will shift from providing an all-encompassing, monolithic "framework" and instead focus more on how users can organize a set of modular components to create the desired solution on Amazon EKS.
+Pega provided docker images should be available in your private Amazon ECR repository  as shown below . For more information on how to upload Pega-provided docker images, please see the links below 
 
-The issue below was created to provide community notice and to help track progress, learn what's new and how the migration path would look like to upgrade your current Terraform deployments.
+https://docs-previous.pega.com/client-managed-cloud/87/pega-provided-docker-images
 
-We welcome the EKS Blueprints community to continue the discussion in issue https://github.com/aws-ia/terraform-aws-eks-blueprints/issues/1421
+https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html
 
----
+![plot](./pega/images/Amazon-ECR.png)
 
-Welcome to Amazon EKS Blueprints for Terraform!
-
-This project contains a collection of Amazon EKS cluster patterns implemented in Terraform that demonstrate how fast and easy it is for customers to adopt [Amazon EKS](https://aws.amazon.com/eks/). The patterns can be used by AWS customers, partners, and internal AWS teams to configure and manage complete EKS clusters that are fully bootstrapped with the operational software that is needed to deploy and operate workloads.
 
 ## Getting Started
 
 The easiest way to get started with EKS Blueprints is to follow our [Getting Started guide](https://aws-ia.github.io/terraform-aws-eks-blueprints/latest/getting-started/).
 
-## Examples
+## Troubleshooting and Known issues 
 
 To view examples for how you can leverage EKS Blueprints, please see the [examples](https://github.com/aws-ia/terraform-aws-eks-blueprints/tree/main/examples) directory.
 
-## Motivation
-
-Kubernetes is a powerful and extensible container orchestration technology that allows you to deploy and manage containerized applications at scale. The extensible nature of Kubernetes also allows you to use a wide range of popular open-source tools, commonly referred to as add-ons, in Kubernetes clusters. With such a large number of tooling and design choices available however, building a tailored EKS cluster that meets your application’s specific needs can take a significant amount of time. It involves integrating a wide range of open-source tools and AWS services and requires deep expertise in AWS and Kubernetes.
-
-AWS customers have asked for examples that demonstrate how to integrate the landscape of Kubernetes tools and make it easy for them to provision complete, opinionated EKS clusters that meet specific application requirements. Customers can use EKS Blueprints to configure and deploy purpose built EKS clusters, and start onboarding workloads in days, rather than months.
 
 ## Support & Feedback
 
