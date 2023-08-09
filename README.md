@@ -26,7 +26,7 @@ Welcome to blueprint for running Pega platform on EKS ( Tomcat) and Amazon Auror
                 a. https://docs-previous.pega.com/client-managed-cloud/87/pega-provided-docker-images
                 b. https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html
 
-                ![plot](docs/pega/Amazon-ECR.png)
+                ![plot](./docs/pega/Amazon-ECR.png)
 
 
 ## Getting Started
@@ -50,7 +50,7 @@ No Hooks will ignore exitence of any external secrets that we have created
 
 Tomcat doesnt allow spl characters ( & , < etc ) for JDBC password. Rotate the Aurora secrets by going into AWS Secrets Manager --> Select secret created by Aurora --> Rotation Configuration -->  Rotate secrets immediately  
 
-                ![plot](docs/pega/Rotate-Secrets.png)
+                ![plot](./docs/pega/Rotate-Secrets.png )
 
 
 use -no-hooks with helm install command to ignore  * secrets "pega-credentials-secret" already exists error
