@@ -133,7 +133,7 @@ module "eks_blueprints_kubernetes_addons" {
     ]
   }
 
-  enable_aws_efs_csi_driver = true #CSI EFS Driver is currently not a managed ADD ON
+  #enable_aws_efs_csi_driver = false #CSI EFS Driver is currently not a managed ADD ON
   # enable_amazon_eks_aws_ebs_csi_driver = false 
   enable_self_managed_aws_ebs_csi_driver = true #This self managed CSI EBS driver will auto create all the required IRSA and Service accounts. With EKS Managed Add ON that requires a custom config . so picking self managed one 
   enable_argocd = true # enable argocd for workload management 
