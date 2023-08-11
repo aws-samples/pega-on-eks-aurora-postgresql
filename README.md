@@ -175,7 +175,7 @@ You can check the list of Kubernetes Objects deployed along with their status by
 
 ```kubectl get all -n pega-web```
 
-##### Output should look like this
+#### Output should look like this
 
 ```
 NAME                              READY   STATUS     RESTARTS   AGE
