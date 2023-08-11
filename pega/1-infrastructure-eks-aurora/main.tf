@@ -30,7 +30,7 @@ data "aws_eks_cluster_auth" "this" {
 data "aws_availability_zones" "available" {}
 
 locals {
-  name   = "pega" # VD name of your EKS cluster 
+  name   = "pega2" # VD name of your EKS cluster 
   region = "us-east-1"
 
   vpc_cidr = "10.0.0.0/16"
@@ -57,7 +57,7 @@ module "eks" {
   version = "~> 19.12"
 
   cluster_name                   = local.name
-  cluster_version                = "1.25"
+  cluster_version                = "1.27"
   cluster_endpoint_public_access = true
 # EKS Addons
   cluster_addons = {
@@ -136,7 +136,7 @@ module "eks_blueprints_kubernetes_addons" {
   #enable_aws_efs_csi_driver = false #CSI EFS Driver is currently not a managed ADD ON
   # enable_amazon_eks_aws_ebs_csi_driver = false 
   enable_self_managed_aws_ebs_csi_driver = true #This self managed CSI EBS driver will auto create all the required IRSA and Service accounts. With EKS Managed Add ON that requires a custom config . so picking self managed one 
-  enable_argocd = true # enable argocd for workload management 
+
   
   # enable secret store csi driver and aws provider - see https://secrets-store-csi-driver.sigs.k8s.io/concepts for details 
   

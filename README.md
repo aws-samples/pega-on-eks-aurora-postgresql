@@ -34,15 +34,29 @@ Welcome to blueprint for running Pega platform on EKS ( Tomcat) and Amazon Auror
 
 1. Create required Infrastructure using terraform (Create EKS Cluster + required Kubernetes add-ons,provision Aurora database,create all the required secrets and store them in AWS secrets manager)
 
-        ``` cd ./pega/1-infrastructure-eks-aurora  
-            Terraform init
-            Terraform apply ```
+```
+cd ./pega/1-infrastructure-eks-aurora  
+```
+```
+Terraform init
+```
+```
+Terraform apply 
+```
 
-     Infrastructure creation will take about 6:22 pm minutes.
+Infrastructure creation will take about 7:30 pm minutes.
 
-     Once completed, configure access to eks cluster by running  ``` aws eks --region us-east-1 update-kubeconfig --name pega ```      
+Once complete, note the message similar to below in the Output 
 
+```
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
 
+Outputs:
+
+aurora-jdbc-write-url = "Aurora JDBC Url to be configured in ../3-pega-application-deployment-helm/pega.yaml | jdbc:postgresql://pega2-postgresqlv2.cluster-cv7ba80pgvtb.us-east-1.rds.amazonaws.com/pegadb"
+configure_kubectl = "Configure kubectl: make sure you're logged in with the correct AWS profile and run the following command to update your kubeconfig | aws eks --region us-east-1 update-kubeconfig --name pega2"
+
+```
 
 
 The easiest way to get started with EKS Blueprints is to follow our [Getting Started guide](https://aws-ia.github.io/terraform-aws-eks-blueprints/latest/getting-started/).
