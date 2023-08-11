@@ -38,7 +38,7 @@ global:
     #                       progressiveStreaming=2;useJDBC4ColumnNameAndLabelSemantics=2;
     #   SQL Server          jdbc:sqlserver://localhost:1433;databaseName=dbName;selectMethod=cursor;sendStringParametersAsUnicode=false
     #   PostgreSQL          jdbc:postgresql://localhost:5432/dbName
-    url: "jdbc:postgresql://pega2-postgresqlv2-two.cv7ba80pgvtb.us-east-1.rds.amazonaws.com/pegadb2"
+    url: "jdbc:postgresql://pega2-postgresqlv2.cluster-cv7ba80pgvtb.us-east-1.rds.amazonaws.com/pegadb"
     #   driverClass 	-- jdbc class.  Valid values are:
     #
     #   Oracle              oracle.jdbc.OracleDriver
@@ -170,7 +170,7 @@ global:
 
         # Enter the domain name to access web nodes via a load balancer.
         #  e.g. web.mypega.example.com
-        domain: 
+        domain: " " # VD fixed bug in pega.yaml where ingress.domain should be have some value for ingress template to be invoked. add it as " "
         # Configure custom path for given host along with pathType. Default pathType is ImplementationSpecific.
         path: /
         pathType: Prefix
@@ -410,7 +410,7 @@ installer:
   image: "136658121779.dkr.ecr.us-east-1.amazonaws.com/pega-images/platform/installer:8.6.0"
   # Set the initial administrator@pega.com password for your installation.  This will need to be changed at first login.
   # The adminPassword value cannot start with "@".
-  adminPassword: "ADMIN_PASSWORD" #changes to Test@12345
+  adminPassword: "ADMIN_PASSWORD" #change to Test@12345 after first login 
   # Upgrade specific properties
   upgrade:
     # Type of upgrade
