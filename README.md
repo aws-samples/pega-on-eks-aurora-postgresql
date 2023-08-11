@@ -175,7 +175,7 @@ You can check the list of Kubernetes Objects deployed along with their status by
 
 ```kubectl get all -n pega-web```
 
-# Output should look like this
+#### Output should look like this
 ```
 NAME                              READY   STATUS     RESTARTS   AGE
 pod/pega-batch-75db4f4d8f-c4nqk   0/1     Init:0/3   0          24m
@@ -258,19 +258,17 @@ STEP 4. Destroy
 To teardown and remove the resources created in this example:
 
 ```sh
-terraform destroy -target="module.eks_blueprints_kubernetes_addons" -auto-approve
-terraform destroy -target="module.eks" -auto-approve
 terraform destroy -auto-approve
 ```
 
 ## Troubleshooting and Known issues 
 
 
-#### NOTE:  Database password is automatically created by RDS Aurora and stored in secrets manager. This Secret may contain special xml characters (& < > " ' ) which cannot be configured by Tomcat in context.xml file. Rotate the Aurora secrets by going into AWS Secrets Manager --> Select secret created by Aurora --> Rotation Configuration -->  Rotate secrets immediately. 
+##### NOTE:  Database password is automatically created by RDS Aurora and stored in secrets manager. This Secret may contain special xml characters (& < > " ' ) which cannot be configured by Tomcat in context.xml file. Rotate the Aurora secrets by going into AWS Secrets Manager --> Select secret created by Aurora --> Rotation Configuration -->  Rotate secrets immediately. 
 
-#### Note : Rotate the secret until RDS secret is free of (& < > " ' )
+##### Note : Rotate the secret until RDS secret is free of (& < > " ' )
 
-Escaping XML Special Characters in Java String : https://www.geeksforgeeks.org/escaping-xml-special-characters-in-java-string/
+For more info see Escaping XML Special Characters in Java String : https://www.geeksforgeeks.org/escaping-xml-special-characters-in-java-string/
 
 
 ![plot](./pega/screenshots/Rotate-Secrets.png)
