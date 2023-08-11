@@ -15,8 +15,3 @@ output "list-of-secrets" {
   value       = data.aws_secretsmanager_secrets.secrets.names
 }
 
-
-output "public-cidr-blocks" {
-  description = "list of secrets"
-  value       = module.vpc.public_subnets_cidr_blocks
-}
