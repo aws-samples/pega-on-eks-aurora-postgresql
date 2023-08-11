@@ -204,7 +204,7 @@ module "aurora_postgresql_v2" {
       from_port= 0
       to_port= 65535
       protocol= "tcp"
-      cidr_blocks = module.vpc.public_subnets_cidr_blocks // VD for security :  restrict DB traffic from public subnets 
+      cidr_blocks = [local.vpc_cidr] // VD: allow all Database access to  traffic originating within the VPC 
     }
   }
  
@@ -282,6 +282,15 @@ resource "aws_secretsmanager_secret_version" "password_HZCAST" {
   secret_string = "{\"HZ_CS_AUTH_PASSWORD\":\"${random_password.password_HZCAST.result}\",\"HZ_CS_AUTH_USERNAME\":\"${random_password.password_HZCAST.result}\"}"
 }
 
+
+
+data "aws_secretsmanager_secrets" "secrets" {
+  depends_on = [module.aurora_postgresql_v2]
+   filter {
+    name   = "name"
+    values = ["rds"]
+  }
+}
 
 ################################################################################
 # Create IAM permissions for pods to access the secrets 
@@ -393,8 +402,6 @@ resource "aws_secretsmanager_secret_version" "ecr-token" {
   secret_id = aws_secretsmanager_secret.ecr-token.id
   secret_string = "{\"url\":\"${data.aws_ecr_repository.repo.repository_url}\",\"username\":\"AWS\", \"password\":\"${data.aws_ecr_authorization_token.token.authorization_token}\",\"expiresat\":\"${data.aws_ecr_authorization_token.token.expires_at}\"}"
 }
-
-
 
 
 
