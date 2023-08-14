@@ -134,7 +134,7 @@ Take the JDBC URL from step #1 and update it in row# 41
 
 Update Respective ECR image Repo URLS ( complete URLS) in row #s 100, 404, 410,432 and 434
 
-Update the Pega Admin Password that you prefer in row #413
+Update the Pega Admin Password that you prefer in row #413 example Test@12345
 
 Deploy Pega by running the following commands 
 
