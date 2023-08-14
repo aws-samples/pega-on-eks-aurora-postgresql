@@ -276,16 +276,13 @@ For more info see Escaping XML Special Characters in Java String : https://www.g
 
 ## Support & Feedback
 
-This project is maintained by AWS Solution Architects. It is not part of an AWS service and support is provided best-effort basis. To post feedback, submit feature ideas, report bugs and contribute, please  see the [Contribution guide](CONTRIBUTING.md#security-issue-notifications).
+This project is maintained by AWS Solution Architects. It is not part of an AWS service and support is provided best-effort basis. To post feedback, submit feature ideas, report bugs and contribute, please  see the [Contribution guide](./CONTRIBUTING.md).
 
 
 ## Security
 
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+See [CONTRIBUTING](./CONTRIBUTING.md#security-issue-notifications) for more information.
 
-## License
-
-This project is licensed under the Apache-2.0 License.
 
 ## License
 
