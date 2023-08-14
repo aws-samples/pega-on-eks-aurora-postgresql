@@ -1,4 +1,4 @@
-# Amazon EKS (Tomcat) and Amazon Aurora PostgreSQL blueprint for Pega
+# Deploying Pega on Amazon EKS (Tomcat) and Amazon Aurora PostgreSQL
 
 Welcome to blueprint for running Pega platform on EKS ( Tomcat) and Amazon Aurora PostgreSQL. The project is structured as follows
 
