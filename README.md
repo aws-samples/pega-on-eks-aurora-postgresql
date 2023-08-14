@@ -270,7 +270,6 @@ terraform destroy -auto-approve
 
 For more info see Escaping XML Special Characters in Java String : https://www.geeksforgeeks.org/escaping-xml-special-characters-in-java-string/
 
-
 ![plot](./pega/screenshots/Rotate-Secrets.png)
 
 
