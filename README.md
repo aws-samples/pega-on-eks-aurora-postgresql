@@ -1,6 +1,6 @@
 # Deploying Pega on Amazon EKS (Apache Tomcat) and Amazon Aurora PostgreSQL
 
-Welcome to blueprint for running Pega platform on Amazon EKS (Tomcat) and Amazon Aurora PostgreSQL using Terraform and Helm. This project is forked from EKS blueprints for Terraform  https://github.com/aws-ia/terraform-aws-eks-blueprints/tree/v4 and customized for Pega deployment on EKS. 
+Welcome to blueprint for running Pega platform on Amazon EKS (Tomcat) and Amazon Aurora PostgreSQL using Terraform and Helm. This project is forked from EKS blueprints for Terraform  https://github.com/aws-ia/terraform-aws-eks-blueprints/tree/v4 and customized for Pega deployment on EKS (https://pegasystems.github.io/pega-helm-charts/docs/Deploying-Pega-on-EKS.html)
 
 The project is structured as follows
 
