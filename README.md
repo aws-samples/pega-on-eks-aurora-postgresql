@@ -285,4 +285,4 @@ See [CONTRIBUTING](./CONTRIBUTING.md#security-issue-notifications) for more info
 
 ## License
 
-Apache-2.0 Licensed. See [LICENSE](./LICENSE).
+MIT-0 Licensed. See [LICENSE](./LICENSE).
